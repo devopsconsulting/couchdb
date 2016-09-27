@@ -15,8 +15,9 @@ sed -i'' 's/fauxton_root, ".\/share\/www"/fauxton_root, "\/usr\/local\/couchdb\/
 # build it
 make release
 
-# create missing data directory
+# create missing directories
 mkdir -p ./rel/couchdb/data
+mkdir -p ./rel/couchdb/log
 
 # build a debian package
 cd ./rel/couchdb/
