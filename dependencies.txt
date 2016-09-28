@@ -1,0 +1,8 @@
+# couchdb
+esl-erlang
+openssl
+ca-certificates
+
+# clouseau
+procps
+openjdk-7-jre

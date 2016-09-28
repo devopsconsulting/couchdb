@@ -23,4 +23,11 @@ mkdir -p ./rel/couchdb/log
 cd ./rel/couchdb/
 rm *.deb 2> /dev/null
 fpm -s dir -a all --name couchdb --version 2.0.0 --maintainer lars@permanentmarkers.nl -t deb --prefix /usr/local/couchdb  --deb-no-default-config-files -d esl-erlang -d openssl -d ca-certificates .
-mv *.deb ../../
+
+# copy artifacts to /mnt
+# couchdb
+cp *.deb /mnt
+# erlang
+cp /*.deb /mnt
+
+
