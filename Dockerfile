@@ -3,10 +3,6 @@
 FROM debian:jessie
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV MAVEN_VERSION 3.3.9
-
-ENV DEBIAN_FRONTEND noninteractive
-
 # Ceate a couchdb user and set it's home directory in /usr/local/src
 RUN groupadd -r couchdb && useradd -d /usr/local/src/couchdb -g couchdb couchdb
 
@@ -22,17 +18,11 @@ RUN apt-get update -y \
 RUN apt-get install -y --no-install-recommends openjdk-7-jdk
 RUN apt-get install -y --no-install-recommends procps
 RUN apt-get install -y --no-install-recommends libwxgtk3.0.0
+RUN apt-get install -y --no-install-recommends maven
 
 # Use correct erlang
-RUN wget http://packages.erlang-solutions.com/erlang/esl-erlang/FLAVOUR_1_general/esl-erlang_18.1-1~debian~jessie_amd64.deb
-RUN dpkg -i esl-erlang_18.1-1~debian~jessie_amd64.deb
-
-# Install Maven
-RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/local/ \
-  && mv /usr/local/apache-maven-$MAVEN_VERSION /usr/local/apache-maven \
-  && ln -s /usr/local/apache-maven/bin/mvn /usr/bin/mvn
-
-ENV MAVEN_HOME /usr/local/apache-maven
+RUN mkdir /downloads && cd /downloads && wget http://packages.erlang-solutions.com/erlang/esl-erlang/FLAVOUR_1_general/esl-erlang_18.1-1~debian~jessie_amd64.deb && cd /
+RUN dpkg -i /downloads/esl-erlang_18.1-1~debian~jessie_amd64.deb
 
 # Install clouseau and the dependencies
 RUN cd /usr/local/src \
