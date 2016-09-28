@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # download and install stuff to build a debian package
-apt-get instal -y ruby ruby-dev
+apt-get install -y ruby ruby-dev
 gem install fpm
 
 # configure and set default configuration
