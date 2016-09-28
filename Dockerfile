@@ -12,13 +12,8 @@ RUN apt-get update -y \
     libnspr4 libnspr4-0d libnspr4-dev libcurl4-openssl-dev libicu-dev \
     openssl curl ca-certificates git pkg-config \
     apt-transport-https python wget \
-    python-sphinx texlive-base texinfo texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra # needed to build the docs
-
-# Install some java stuff
-RUN apt-get install -y --no-install-recommends openjdk-7-jdk
-RUN apt-get install -y --no-install-recommends procps
-RUN apt-get install -y --no-install-recommends libwxgtk3.0.0
-RUN apt-get install -y --no-install-recommends maven
+    python-sphinx texlive-base texinfo texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra \
+    openjdk-7-jdk procps libwxgtk3.0.0 maven
 
 # Use correct erlang
 RUN mkdir /downloads && cd /downloads && wget http://packages.erlang-solutions.com/erlang/esl-erlang/FLAVOUR_1_general/esl-erlang_18.1-1~debian~jessie_amd64.deb && cd /
@@ -26,7 +21,7 @@ RUN dpkg -i /downloads/esl-erlang_18.1-1~debian~jessie_amd64.deb
 
 # Install clouseau and the dependencies
 RUN cd /usr/local/src \
- && git clone https://github.com/cloudant-labs/clouseau \
+ && git clone https://github.com/devopsconsulting/clouseau \
  && cd /usr/local/src/clouseau \
  && mvn -Dmaven.test.skip=true install
 
