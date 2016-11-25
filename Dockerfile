@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN groupadd -r couchdb && useradd -d /usr/local/src/couchdb -g couchdb couchdb
 
 # Download dependencies and needed stuff to compile couchdb
-RUN apt-get update -y \
+RUN apt-get update -y && apt-get clean \
   && apt-get install -y --no-install-recommends build-essential libmozjs185-dev \
     libnspr4 libnspr4-0d libnspr4-dev libcurl4-openssl-dev libicu-dev \
     openssl curl ca-certificates git pkg-config \
@@ -35,9 +35,6 @@ RUN cd /usr/local/src \
  && git clone https://github.com/devopsconsulting/couchdb \
  && cd couchdb \
  && git checkout 2.0-with-search
-
-# We don't to be so strict for simple testing.
-# RUN cd /usr/local/src/couchdb && sed -i'' '/require_otp_vsn/d' rebar.config.script
 
 # Expose CouchDB to the outside world
 RUN cd /usr/local/src/couchdb && sed -i'' 's/bind_address = 127.0.0.1/bind_address = 0.0.0.0/' /usr/local/src/couchdb/rel/overlay/etc/default.ini
